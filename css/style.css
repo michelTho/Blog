@@ -3,10 +3,42 @@ body {
 }
 
 header {
-    display: flex;
-    background-color: #a64dff;
+    background-color: #601495;
+    box-shadow: #00000066 0px 4px 15px;
+}
+
+#mainTitle {
     margin: 0px;
-    box-shadow: grey 0px 3px 6px;
+    text-align: left;
+    padding-top: 86px;
+    padding-left: 64px;
+    padding-bottom: 32px;
+    font-size: 42px;
+    color: #ffffffff;
+}
+
+#navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+#navigation p {
+    height: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    font-size: 20px;
+    border-right: #00000033 solid 2px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#navigation p a {
+    text-align: center;
+    text-decoration: none;
+    color: #ffffffdd;
 }
 
 h1, h2 {
