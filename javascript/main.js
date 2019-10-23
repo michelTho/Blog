@@ -1,7 +1,7 @@
 var container = document.getElementById('container');
 
 function loadJavascript(name) {
-    import (`./${name}.js`).then((module) => {module.main()});
+    import (`./${name}/${name}.js`).then((module) => {module.main()});
 }
 
 function route() {
