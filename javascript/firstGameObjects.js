@@ -1,4 +1,4 @@
-import config from './config.js'
+import config from './firstGameConfig.js'
 
 export var Hero = {
     x: config.WIDTH / 2,

@@ -1,5 +1,5 @@
-import { Hero, Enemy } from './home_objects.js';
-import config from './config.js';
+import { Hero, Enemy } from './firstGameObjects.js';
+import config from './firstGameConfig.js';
 
 var canvas;
 var ctx;
