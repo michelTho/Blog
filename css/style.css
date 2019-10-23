@@ -41,6 +41,12 @@ header {
     color: #ffffffdd;
 }
 
+section {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 article {
     margin-top: 40px;
     display: flex;
@@ -55,4 +61,13 @@ canvas {
     border-radius: 10px;
     box-shadow: #00000088 5px 5px 15px;
     margin-bottom: 300px;
+}
+
+a article {
+    text-decoration: none;
+    padding: 16px;
+    margin: 40px;
+    margin-left: 80px;
+    margin-right: 80px;
+    border: #000000 solid 1px;
 }
