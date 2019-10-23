@@ -1,3 +1,5 @@
+'use strict';
+
 var container = document.getElementById('container');
 
 function loadJavascript(name) {
@@ -19,4 +21,3 @@ function route() {
 
 window.onhashchange = route;
 route();
-

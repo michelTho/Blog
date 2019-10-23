@@ -1,3 +1,5 @@
+'use strict';
+
 import config from './firstGameConfig.js'
 
 export var Hero = {

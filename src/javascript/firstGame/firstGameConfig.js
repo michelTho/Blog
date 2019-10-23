@@ -1,3 +1,5 @@
+'use strict';
+
 const config = {
     NUMBER_ENEMIES: 10,
     HEIGHT: 600,

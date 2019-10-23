@@ -1,3 +1,5 @@
+'use strict';
+
 import { Hero, Enemy } from './firstGameObjects.js';
 import config from './firstGameConfig.js';
 
