@@ -5,7 +5,7 @@ var THREE = require('three');
 var config = require('./secondGameConfig.js');
 
 var scene, camera, renderer;
-var geometry, material, cube;
+var geometry, material, cubes;
 
 var article;
 
@@ -23,15 +23,20 @@ function load3DMainObjects() {
 
     geometry = new THREE.BoxGeometry(1, 1, 1);
     material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    cubes = [];
+    cubes.push(new THREE.Mesh(geometry, material));
+    cubes.push(new THREE.Mesh(geometry, material));
+    console.log(cubes[1]);
+    cubes[1].position.x += 1.5;
+    scene.add(cubes[0]);
+    scene.add(cubes[1]);
 
     camera.position.z = 3;
 }
 
 function animate() {
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    cubes[0].rotation.x += 0.01;
+    cubes[1].rotation.y += 0.01;
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }
