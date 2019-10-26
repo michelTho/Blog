@@ -1,3 +1,5 @@
+'use strict';
+
 var commun = {
     name: 'commun',
     domObj: document.getElementById('commun'),
