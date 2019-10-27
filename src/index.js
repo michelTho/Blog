@@ -3,14 +3,14 @@
 var container = document.getElementById('container');
 
 function loadJavascript(name) {
-    import (`./${name}/${name}.js`).then((module) => {module.main()});
+    import (`./javascript/${name}/${name}.js`).then((module) => {module.main()});
 }
 
 function route() {
     let hash = window.location.hash;
     hash = hash ? hash : '#home';
     name = hash.slice(1, hash.length);
-    let url = `templates/${name}.html`;
+    let url = `./src/templates/${name}.html`;
     fetch(url)
         .then((response) => { return response.text() })
         .then((text) => { 
