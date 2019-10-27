@@ -1,5 +1,9 @@
 'use strict';
 
-export function main(){
+function main(){
     console.log('home.main loaded');   
+}
+
+module.exports = {
+    main: main
 }

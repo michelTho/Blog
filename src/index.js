@@ -1,21 +1,24 @@
 'use strict';
 
-var container = document.getElementById('container');
-
-function loadJavascript(name) {
-    import (`./javascript/${name}/${name}.js`).then((module) => {module.main()});
+var modules = {
+    home: require('./javascript/home/home.js'),
+    about: require('./javascript/about/about.js'),
+    firstGame: require('./javascript/firstGame/firstGame.js'),
+    secondGame: require('./javascript/secondGame/secondGame.js')
 }
+
+var container = document.getElementById('container');
 
 function route() {
     let hash = window.location.hash;
     hash = hash ? hash : '#home';
     name = hash.slice(1, hash.length);
-    let url = `./src/templates/${name}.html`;
+    let url = `src/templates/${name}.html`;
     fetch(url)
         .then((response) => { return response.text() })
-        .then((text) => { 
+        .then((text) => {
             container.innerHTML = text;
-            loadJavascript(name);
+            modules[name].main();
         });
 }
 

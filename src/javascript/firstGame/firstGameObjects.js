@@ -1,8 +1,8 @@
 'use strict';
 
-import config from './firstGameConfig.js'
+var config = require('./firstGameConfig.js');
 
-export var Hero = {
+var Hero = {
     x: config.WIDTH / 2,
     y: config.HEIGHT / 2,
     goingLeft: false,
@@ -55,7 +55,7 @@ export var Hero = {
     }
 };
 
-export function Enemy(x, y, speedX, speedY) {
+function Enemy(x, y, speedX, speedY) {
     this.x = x;
     this.y = y
     this.speedX = speedX;
@@ -70,3 +70,8 @@ Enemy.createRandom = () => {
         Math.random() * 5
     )
 };
+
+module.exports = {
+    Enemy: Enemy,
+    Hero: Hero
+}

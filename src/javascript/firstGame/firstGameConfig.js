@@ -8,4 +8,4 @@ const config = {
     HERO_RADIUS: 8,
 };
 
-export default config;
+module.exports = config;

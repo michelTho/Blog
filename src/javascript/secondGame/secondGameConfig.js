@@ -5,4 +5,4 @@ const config = {
     WIDTH: 800,
 };
 
-export default config;
+module.exports = config;

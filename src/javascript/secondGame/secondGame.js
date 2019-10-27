@@ -1,8 +1,8 @@
 'use strict';
 
-import * as THREE from '../../../node_modules/three/src/Three.js';
+var THREE = require('three');
 
-import config from './secondGameConfig.js';
+var config = require('./secondGameConfig.js');
 
 var scene, camera, renderer;
 var geometry, material, cube;
@@ -36,8 +36,12 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-export function main() {
+function main() {
     loadDocumentElement();
     load3DMainObjects();
     animate();
+}
+
+module.exports = {
+    main: main
 }

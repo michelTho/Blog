@@ -1,7 +1,9 @@
 'use strict';
 
-import { Hero, Enemy } from './firstGameObjects.js';
-import config from './firstGameConfig.js';
+var Objects = require('./firstGameObjects.js');
+var Hero = Objects.Hero;
+var Enemy = Objects.Enemy;
+var config = require('./firstGameConfig.js');
 
 var canvas;
 var ctx;
@@ -92,10 +94,14 @@ function loop() {
     window.requestAnimationFrame(loop);
 }
 
-export function main() {
+function main() {
     loadCanvas();
     reset();
     document.addEventListener('keydown', Hero.handleKeyDown);
     document.addEventListener('keyup', Hero.handleKeyUp);
     loop();
+}
+
+module.exports = {
+    main: main
 }
