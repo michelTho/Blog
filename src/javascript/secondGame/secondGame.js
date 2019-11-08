@@ -13,7 +13,7 @@ function loadDocumentElement() {
     article = document.getElementById('container').firstChild;
 }
 
-function load3DMainObjects() {
+function loadObjects() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, config.WIDTH / config.HEIGHT, 0.1, 1000);
 
@@ -38,7 +38,7 @@ function animate() {
 
 function main() {
     loadDocumentElement();
-    load3DMainObjects();
+    loadObjects();
     animate();
 }
 

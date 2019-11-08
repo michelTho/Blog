@@ -4,7 +4,8 @@ var modules = {
     home: require('./javascript/home/home.js'),
     about: require('./javascript/about/about.js'),
     firstGame: require('./javascript/firstGame/firstGame.js'),
-    secondGame: require('./javascript/secondGame/secondGame.js')
+    secondGame: require('./javascript/secondGame/secondGame.js'),
+    thirdGame: require('./javascript/thirdGame/thirdGame.js')
 }
 
 var container = document.getElementById('container');
