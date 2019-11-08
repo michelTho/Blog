@@ -6,7 +6,7 @@ var config = {
     CAMERA_FOV: 50,
     CAMERA_NEAR: 0.1,
     CAMERA_FAR: 50,
-    N: 150,
+    N: 10,
     FOG_DISTANCE: 5
 };
 
