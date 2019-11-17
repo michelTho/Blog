@@ -2,11 +2,13 @@
 
 var config = require('./fourthGameConfig.js');
 
-var Snake;
+var Snake, Apple;
 
-var canvas, ctx;
+var canvas, ctx, scoreElem;
 
 var fpsInterval, then, now, elapsed;
+
+var score;
 
 var Position = function (x, y) {
     this.pixelX = x;
@@ -20,6 +22,13 @@ function loadCanvas() {
     ctx = canvas.getContext('2d');
     canvas.height = config.HEIGHT;
     canvas.width = config.WIDTH;
+    scoreElem = document.getElementById('score');
+}
+
+function getRandomPosition() {
+    let i = new Position(Math.floor(Math.random() * config.PIXEL_TOTAL_WIDTH), Math.floor(Math.random() * config.PIXEL_TOTAL_HEIGHT));
+    console.log(i);
+    return i;
 }
 
 function reset() {
@@ -30,25 +39,35 @@ function reset() {
         new Position(1, Math.floor(config.PIXEL_TOTAL_HEIGHT / 2)),
         new Position(0, Math.floor(config.PIXEL_TOTAL_HEIGHT / 2))
     ];
+    Apple = getRandomPosition();
+    score = 0;
 }
 
 function bindKeys() {
     document.addEventListener('keydown', (event) => {
         switch (event.keyCode) {
             case 37:
-                Snake.direction = 'left'
+                if (Snake.direction !== 'right') {
+                    Snake.direction = 'left'
+                }
                 event.preventDefault();
                 break;
             case 38:
-                Snake.direction = 'top'
+                if (Snake.direction !== 'down') {
+                    Snake.direction = 'top'
+                }
                 event.preventDefault();
                 break;
             case 39:
-                Snake.direction = 'right'
+                if (Snake.direction !== 'left') {
+                    Snake.direction = 'right'
+                }
                 event.preventDefault();
                 break;
             case 40:
-                Snake.direction = 'down'
+                if (Snake.direction !== 'top') {
+                    Snake.direction = 'down'
+                }
                 event.preventDefault();
                 break;
         }
@@ -101,16 +120,52 @@ function loop() {
                 break;
         }
 
+        if (Snake.positions[0].pixelX === -1) {
+            Snake.positions[0].pixelX = config.PIXEL_TOTAL_WIDTH - 1;
+            Snake.positions[0].absoluteX = config.WIDTH - config.PIXEL_WIDTH;
+        }
+        if (Snake.positions[0].pixelY === -1) {
+            Snake.positions[0].pixelY = config.PIXEL_TOTAL_HEIGHT - 1;
+            Snake.positions[0].absoluteY = config.HEIGHT - config.PIXEL_HEIGHT;
+        }
+        if (Snake.positions[0].pixelX === config.PIXEL_TOTAL_WIDTH) {
+            Snake.positions[0].pixelX = 0;
+            Snake.positions[0].absoluteX = 0;
+        }
+        if (Snake.positions[0].pixelY === config.PIXEL_TOTAL_HEIGHT) {
+            Snake.positions[0].pixelY = 0;
+            Snake.positions[0].absoluteY = 0;
+        }
+
+
+        //Draw Apple
+        ctx.fillStyle = 'rgb(0,255,0)';
+        ctx.fillRect(Apple.absoluteX, Apple.absoluteY, config.PIXEL_WIDTH - 1, config.PIXEL_HEIGHT - 1);
+
         //Draw Snake
         ctx.fillStyle = 'rgb(255,0,0)';
         for (let i = 0; i < Snake.positions.length; i++) {
-            console.log(Snake)
             ctx.fillRect(Snake.positions[i].absoluteX, Snake.positions[i].absoluteY, config.PIXEL_WIDTH - 1, config.PIXEL_HEIGHT - 1);
+        }
+
+        //Determine if you are dead
+        for (let i = 1; i < Snake.positions.length; i++) {
+            if (Snake.positions[i].pixelX === Snake.positions[0].pixelX && Snake.positions[i].pixelY === Snake.positions[0].pixelY) {
+                alert('You loose! Ha!');
+                reset();
+            }
+        }
+
+        //Determine if apple was eaten
+        if (Apple.pixelX === Snake.positions[0].pixelX && Apple.pixelY === Snake.positions[0].pixelY) {
+            score++;
+            scoreElem.innerText = score;
+            Apple = getRandomPosition();
+            Snake.positions.push(new Position(0, 0));
         }
     }
 
     window.requestAnimationFrame(loop);
-
 }
 
 function main() {
