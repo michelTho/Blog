@@ -2,11 +2,13 @@
 
 var config = require('./fourthGameConfig.js');
 
-var Snake, Apple;
-
 var canvas, ctx, scoreElem;
 
+var Snake, Apple;
+
 var fpsInterval, then, now, elapsed;
+
+var lockControl;
 
 var score;
 
@@ -41,37 +43,38 @@ function reset() {
     ];
     Apple = getRandomPosition();
     score = 0;
+    scoreElem.innerText = 0;
+    lockControl = false;
 }
 
-function bindKeys() {
-    document.addEventListener('keydown', (event) => {
-        switch (event.keyCode) {
-            case 37:
-                if (Snake.direction !== 'right') {
-                    Snake.direction = 'left'
-                }
-                event.preventDefault();
-                break;
-            case 38:
-                if (Snake.direction !== 'down') {
-                    Snake.direction = 'top'
-                }
-                event.preventDefault();
-                break;
-            case 39:
-                if (Snake.direction !== 'left') {
-                    Snake.direction = 'right'
-                }
-                event.preventDefault();
-                break;
-            case 40:
-                if (Snake.direction !== 'top') {
-                    Snake.direction = 'down'
-                }
-                event.preventDefault();
-                break;
-        }
-    })
+function handleKeyStroke(event) {
+    switch (event.keyCode) {
+        case 37:
+            if (Snake.direction !== 'right' && !lockControl) {
+                Snake.direction = 'left';
+                lockControl = true;
+            }
+            break;
+        case 38:
+            if (Snake.direction !== 'down' && !lockControl) {
+                Snake.direction = 'top';
+                lockControl = true;
+            }
+            break;
+        case 39:
+            if (Snake.direction !== 'left' && !lockControl) {
+                Snake.direction = 'right';
+                lockControl = true;
+            }
+            break;
+        case 40:
+            if (Snake.direction !== 'top' && !lockControl) {
+                Snake.direction = 'down';
+                lockControl = true;
+            }
+            break;
+    }
+    event.preventDefault();
 }
 
 function startAnimation() {
@@ -90,7 +93,7 @@ function loop() {
         then = now - (elapsed % fpsInterval);
 
         //Erase past frames
-        ctx.fillStyle = 'rgba(0,0,0,25)';
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.fillRect(0, 0, config.WIDTH, config.HEIGHT);
 
         //Move Snake
@@ -104,19 +107,19 @@ function loop() {
         switch (Snake.direction) {
             case 'left':
                 Snake.positions[0].pixelX -= 1;
-                Snake.positions[0].absoluteX -= 20;
+                Snake.positions[0].absoluteX -= config.PIXEL_WIDTH;
                 break;
             case 'top':
                 Snake.positions[0].pixelY -= 1;
-                Snake.positions[0].absoluteY -= 20;
+                Snake.positions[0].absoluteY -= config.PIXEL_HEIGHT;
                 break;
             case 'right':
                 Snake.positions[0].pixelX += 1;
-                Snake.positions[0].absoluteX += 20;
+                Snake.positions[0].absoluteX += config.PIXEL_WIDTH;
                 break;
             case 'down':
                 Snake.positions[0].pixelY += 1;
-                Snake.positions[0].absoluteY += 20;
+                Snake.positions[0].absoluteY += config.PIXEL_HEIGHT;
                 break;
         }
 
@@ -151,6 +154,7 @@ function loop() {
         //Determine if you are dead
         for (let i = 1; i < Snake.positions.length; i++) {
             if (Snake.positions[i].pixelX === Snake.positions[0].pixelX && Snake.positions[i].pixelY === Snake.positions[0].pixelY) {
+                console.log(Snake);
                 alert('You loose! Ha!');
                 reset();
             }
@@ -163,6 +167,8 @@ function loop() {
             Apple = getRandomPosition();
             Snake.positions.push(new Position(0, 0));
         }
+
+        lockControl = false;
     }
 
     window.requestAnimationFrame(loop);
@@ -172,7 +178,7 @@ function main() {
     console.log('fourthGame.main loaded');
     loadCanvas();
     reset();
-    bindKeys();
+    document.addEventListener('keydown', handleKeyStroke)
     startAnimation();
 }
 
